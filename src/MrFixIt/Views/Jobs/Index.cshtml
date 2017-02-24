@@ -16,12 +16,30 @@
         </ul>
         @if (Job.Worker == null)
         {
-        <li class="btn" id="job-@Job.JobId">This job is unclaimed. <button value="@Job.JobId" id="claim-job" class="btn btn-primary">Claim this job!</button></li>
+            <li class="btn" id="job-@Job.JobId">This job is unclaimed. <button value="@Job.JobId" class="claim-job btn btn-primary">Claim this job!</button></li>
         }
         else
         {
-            <li class="btn">This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName</li>
-
+            @if (Job.Pending)
+            {
+                <li class="btn" id="job-@Job.JobId">
+                    This Job is claimed and being worked on by @Job.Worker.FirstName @Job.Worker.LastName.
+                    @if (User.Identity.Name == Job.Worker.UserName)
+                    {
+                        <button value="@Job.JobId" class="complete btn btn-primary">Hey, I'm done workin' over here!</button>
+                    }
+                </li>
+            }
+            else
+            {
+                <li class="btn" id="job-@Job.JobId">
+                    This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName.
+                    @if (User.Identity.Name == Job.Worker.UserName)
+                    {
+                        <button value="@Job.JobId" class="working btn btn-primary">Hey, I'm workin' over here!</button>
+                    }
+                </li>
+            }
         }
     </ul>
 
@@ -31,7 +49,7 @@
 
 <script>    
     $(function () {
-        $("#claim-job").click(function () {
+        $(".claim-job").click(function () {
             var selectedId = $(this).attr("value");
             $.ajax({
                 url: "@Url.Action("Claim")",
@@ -42,9 +60,23 @@
                 $(this).hide();
                 $("#job-" + selectedId).text("This Job is claimed by " + result.worker.firstName + " " + result.worker.lastName + ".");
                 console.log(result);
-            }
+                }
+            });
         });
 
+        $('body').on('click', '.working', function () {
+            var selectedId = $(this).attr("value");
+            $.ajax({
+                url: "@Url.Action("Working")",
+                type: "POST",
+                dataType: "json",
+                data: { id: selectedId },
+                success: function (result) {
+                    $(this).hide();
+                    $("#job-" + selectedId).text("This Job is claimed and being worked on by " + result.worker.firstName + " " + result.worker.lastName + ".");
+                    console.log(result);
+                }
+            });
         });
     });
 </script>
