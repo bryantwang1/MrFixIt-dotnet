@@ -72,8 +72,11 @@ namespace MrFixIt.Controllers
         public IActionResult Claim(int id)
         {
             var thisJob = db.Jobs.FirstOrDefault(j => j.JobId == id);
-            thisJob.Worker = db.Workers.FirstOrDefault(w => w.UserName == User.Identity.Name);
-            thisJob.Worker.Avaliable = false;
+            thisJob.Worker = db.Workers.Include(w => w.Jobs).FirstOrDefault(ww => ww.UserName == User.Identity.Name);
+            if(thisJob.Worker.Jobs.Count >= 2)
+            {
+                thisJob.Worker.Avaliable = false;
+            }
             db.Entry(thisJob).State = EntityState.Modified;
             db.SaveChanges();
             return Json(thisJob);

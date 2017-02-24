@@ -77,6 +77,10 @@
                     $(this).hide();
                     $("#job-" + selectedId).text("This Job is claimed by " + result.worker.firstName + " " + result.worker.lastName + ".");
                     $("#job-" + selectedId).append("<button value=\"" + selectedId + "\" class=\"working btn btn-primary\">Hey, I'm workin' over here!</button>");
+                    console.log(result);
+                    if(!result.worker.avaliable) {
+                        $(".claim-job").hide();
+                    }
                 }
             });
         });
