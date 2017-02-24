@@ -16,7 +16,12 @@
         </ul>
         @if (Job.Worker == null)
         {
-            <li class="btn" id="job-@Job.JobId">This job is unclaimed. <button value="@Job.JobId" class="claim-job btn btn-primary">Claim this job!</button></li>
+            <li class="btn" id="job-@Job.JobId">This job is unclaimed. 
+            @if (User.Identity.Name != Job.Poster.UserName)
+            {
+                <button value="@Job.JobId" class="claim-job btn btn-primary">Claim this job!</button>
+            }
+            </li>
         }
         else
         {
@@ -28,7 +33,7 @@
             {
                 <li class="btn" id="job-@Job.JobId">
                     This Job is claimed and being worked on by @Job.Worker.FirstName @Job.Worker.LastName.
-                    @if (User.Identity.Name == Job.Worker.UserName)
+                    @if (User.Identity.Name == Job.Worker.UserName && User.Identity.Name != Job.Poster.UserName)
                     {
                         <button value="@Job.JobId" class="complete btn btn-primary">Hey, I'm done workin' over here!</button>
                     }
@@ -38,12 +43,16 @@
             {
                 <li class="btn" id="job-@Job.JobId">
                     This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName.
-                    @if (User.Identity.Name == Job.Worker.UserName)
+                    @if (User.Identity.Name == Job.Worker.UserName && User.Identity.Name != Job.Poster.UserName)
                     {
                         <button value="@Job.JobId" class="working btn btn-primary">Hey, I'm workin' over here!</button>
                     }
                 </li>
             }
+        }
+        @if (User.Identity.Name == Job.Poster.UserName)
+        {
+            <a asp-action="Edit" asp-controller="Jobs" asp-route-id="@Job.JobId">Edit this job</a>
         }
     </ul>
 

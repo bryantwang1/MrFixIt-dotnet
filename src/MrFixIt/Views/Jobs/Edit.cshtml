@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+@model MrFixIt.Models.Job
+
+    <h2>Create new Job</h2>
+        <hr />
+        <h4>Add a new job</h4>
+        @using (Html.BeginForm())
+        {
+            <input asp-for="@Model.JobId" type="hidden" />
+
+            <label asp-for="@Model.Title"></label>
+            <input asp-for="@Model.Title" />
+            <label asp-for="@Model.Description"></label>
+            <input asp-for="@Model.Description" />
+            <input type="submit" value="Save changes" />
+        }
+        <p>@Html.ActionLink("Back to list", "Index")</p>
