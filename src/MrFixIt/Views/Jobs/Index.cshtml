@@ -17,7 +17,7 @@
         @if (Job.Worker == null)
         {
             <li class="btn" id="job-@Job.JobId">This job is unclaimed. 
-            @if (User.Identity.Name != Job.Poster.UserName)
+            @if (User.Identity.Name != Job.Poster.UserName && ViewBag.CurrentUser.Avaliable)
             {
                 <button value="@Job.JobId" class="claim-job btn btn-primary">Claim this job!</button>
             }

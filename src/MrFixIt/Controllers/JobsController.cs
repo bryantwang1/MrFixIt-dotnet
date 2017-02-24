@@ -20,6 +20,7 @@ namespace MrFixIt.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewBag.CurrentUser = db.Workers.FirstOrDefault(w => w.UserName == User.Identity.Name);
             return View(db.Jobs.Include(j => j.Worker).Include(j => j.Poster).ToList());
         }
 
@@ -72,6 +73,7 @@ namespace MrFixIt.Controllers
         {
             var thisJob = db.Jobs.FirstOrDefault(j => j.JobId == id);
             thisJob.Worker = db.Workers.FirstOrDefault(w => w.UserName == User.Identity.Name);
+            thisJob.Worker.Avaliable = false;
             db.Entry(thisJob).State = EntityState.Modified;
             db.SaveChanges();
             return Json(thisJob);
