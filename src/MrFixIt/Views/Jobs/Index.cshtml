@@ -53,6 +53,10 @@
         @if (User.Identity.Name == Job.Poster.UserName)
         {
             <a asp-action="Edit" asp-controller="Jobs" asp-route-id="@Job.JobId">Edit this job</a>
+            <form asp-action="Delete">
+                <input name ="id" value="@Job.JobId" type="hidden" />
+                <input type="submit" value="Delete this job" onclick="return confirm('Are you sure you want to delete this job?')"/>
+            </form>
         }
     </ul>
 
