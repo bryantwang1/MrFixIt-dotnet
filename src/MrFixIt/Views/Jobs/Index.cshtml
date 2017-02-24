@@ -88,13 +88,13 @@
             $.ajax({
                 url: "@Url.Action("Complete")",
                 type: "POST",
-            dataType: "json",
-            data: { id: selectedId },
-            success: function (result) {
-                $(this).hide();
-                $("#job-" + selectedId).text("This Job has been completed by " + result.worker.firstName + " " + result.worker.lastName + ".");
-            }
+                dataType: "json",
+                data: { id: selectedId },
+                success: function (result) {
+                    $(this).hide();
+                    $("#job-" + selectedId).text("This Job has been completed by " + result.worker.firstName + " " + result.worker.lastName + ".");
+                }
+            });
         });
-    });
     });
 </script>
