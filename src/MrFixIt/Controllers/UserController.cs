@@ -10,13 +10,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MrFixIt.Controllers
 {
-    public class WorkersController : Controller
+    public class UserController : Controller
     {
         private MrFixItContext db = new MrFixItContext();
         // GET: /<controller>/
         public IActionResult Index()
         {
             var thisWorker = db.Workers.Include(w =>w.Jobs).FirstOrDefault(ww => ww.UserName == User.Identity.Name);
+            ViewBag.Posts = db.Jobs.Where(j => j.Poster.UserName == User.Identity.Name).ToList();
             if (thisWorker != null)
             {
                 return View(thisWorker);

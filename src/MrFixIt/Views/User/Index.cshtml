@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    <div class="text-center">
+        <h4>Hello User @Model.FirstName @Model.LastName. You are Logged In</h4>
+        <h3>Your Posted Jobs:</h3>
+        @foreach(var Post in ViewBag.Posts)
+        {
+            <h5>@Post.Title</h5>
+
+        }
+        <h3>Your Working Jobs:</h3>
+        @foreach (var Job in Model.Jobs)
+        {
+            <h5>@Job.Title</h5>
+
+        }
+
+        <h2>@Html.ActionLink("Job Board", "Index", "Jobs")</h2>
+
+    </div>
+}
