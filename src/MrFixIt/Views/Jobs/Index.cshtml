@@ -47,19 +47,19 @@
     <hr />
 }
 
-<script>    
+<script>
     $(function () {
         $(".claim-job").click(function () {
             var selectedId = $(this).attr("value");
             $.ajax({
                 url: "@Url.Action("Claim")",
                 type: "POST",
-            dataType: "json",
-            data: { id: selectedId },
-            success: function (result) {
-                $(this).hide();
-                $("#job-" + selectedId).text("This Job is claimed by " + result.worker.firstName + " " + result.worker.lastName + ".");
-                console.log(result);
+                dataType: "json",
+                data: { id: selectedId },
+                success: function (result) {
+                    $(this).hide();
+                    $("#job-" + selectedId).text("This Job is claimed by " + result.worker.firstName + " " + result.worker.lastName + ".");
+                    $("#job-" + selectedId).append("<button value=\"" + selectedId + "\" class=\"working btn btn-primary\">Hey, I'm workin' over here!</button>");
                 }
             });
         });
@@ -74,7 +74,6 @@
                 success: function (result) {
                     $(this).hide();
                     $("#job-" + selectedId).text("This Job is claimed and being worked on by " + result.worker.firstName + " " + result.worker.lastName + ".");
-                    console.log(result);
                 }
             });
         });
