@@ -33,19 +33,20 @@ namespace MrFixIt.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Claim(int id)
-        {
-            var thisItem = db.Jobs.FirstOrDefault(items => items.JobId == id);
-            return View(thisItem);
-        }
+        //public IActionResult Claim(int id)
+        //{
+        //    var thisJob = db.Jobs.FirstOrDefault(jobs => jobs.JobId == id);
+        //    return View(thisItem);
+        //}
 
         [HttpPost]
-        public IActionResult Claim(Job job)
+        public IActionResult Claim(int id)
         {
-            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
-            db.Entry(job).State = EntityState.Modified;
+            var thisJob = db.Jobs.FirstOrDefault(jobs => jobs.JobId == id);
+            thisJob.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
+            db.Entry(thisJob).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(thisJob);
         }
     }
 }
