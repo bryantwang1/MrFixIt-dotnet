@@ -20,7 +20,11 @@
         }
         else
         {
-            @if (Job.Pending)
+            @if (Job.Completed)
+            {
+                <li class="btn" id="job-@Job.JobId">This Job has been completed by @Job.Worker.FirstName @Job.Worker.LastName.</li>
+            }
+            else if (Job.Pending)
             {
                 <li class="btn" id="job-@Job.JobId">
                     This Job is claimed and being worked on by @Job.Worker.FirstName @Job.Worker.LastName.
@@ -74,8 +78,23 @@
                 success: function (result) {
                     $(this).hide();
                     $("#job-" + selectedId).text("This Job is claimed and being worked on by " + result.worker.firstName + " " + result.worker.lastName + ".");
+                    $("#job-" + selectedId).append("<button value=\"" + selectedId + "\" class=\"complete btn btn-primary\">Hey, I'm workin' over here!</button>");
                 }
             });
         });
+
+        $('body').on('click', '.complete', function () {
+            var selectedId = $(this).attr("value");
+            $.ajax({
+                url: "@Url.Action("Complete")",
+                type: "POST",
+            dataType: "json",
+            data: { id: selectedId },
+            success: function (result) {
+                $(this).hide();
+                $("#job-" + selectedId).text("This Job has been completed by " + result.worker.firstName + " " + result.worker.lastName + ".");
+            }
+        });
+    });
     });
 </script>
