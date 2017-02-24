@@ -14,11 +14,12 @@ namespace MrFixIt.Models
         public string Description { get; set; }
         public bool Completed { get; set; }
         public bool Pending { get; set; }
+        public virtual ApplicationUser Poster { get; set; }
         public virtual Worker Worker { get; set; }
 
         public Worker FindWorker(string UserName)
         {
-            Worker thisWorker = new MrFixItContext().Workers.FirstOrDefault(i => i.UserName == UserName);
+            Worker thisWorker = new MrFixItContext().Workers.FirstOrDefault(w => w.UserName == UserName);
             return thisWorker;
         }
     }

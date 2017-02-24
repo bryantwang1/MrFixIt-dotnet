@@ -18,7 +18,7 @@ namespace MrFixIt.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var thisWorker = db.Workers.FirstOrDefault(item => item.UserName == User.Identity.Name);
+                var thisWorker = db.Workers.FirstOrDefault(w => w.UserName == User.Identity.Name);
                 return View(thisWorker);
             } else
             {

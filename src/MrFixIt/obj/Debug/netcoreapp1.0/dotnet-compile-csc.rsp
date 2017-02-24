@@ -214,6 +214,8 @@
 "C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Controllers\WorkersController.cs"
 "C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Migrations\20161206233149_Initial.cs"
 "C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Migrations\20161206233149_Initial.Designer.cs"
+"C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Migrations\20170224200632_AddPosterToJobModel.cs"
+"C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Migrations\20170224200632_AddPosterToJobModel.Designer.cs"
 "C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Migrations\MrFixItContextModelSnapshot.cs"
 "C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Models\ApplicationUser.cs"
 "C:\Users\bryan\Documents\Epicodus\MrFixIt-dotnet\src\MrFixIt\Models\Job.cs"

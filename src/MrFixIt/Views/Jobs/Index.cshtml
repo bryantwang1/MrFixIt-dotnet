@@ -10,7 +10,7 @@
 @foreach (var Job in Model)
 {
     <ul>
-        <li>@Job.Title</li>
+        <li>@Job.Poster.UserName: @Job.Title</li>
         <ul>
             <li>@Job.Description</li>
         </ul>
